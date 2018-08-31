@@ -1,0 +1,195 @@
+swagger: '2.0'
+info:
+  description: Pharma Decom API
+  version: 0.0.1
+  title: Pharma Decom API
+  contact:
+    email: david.stromberg@kronansapotek.se
+host: tbd.com
+basePath: /v1/pharmadecom
+tags:
+  - name: Decommissioning
+    description: Everything about decommissioning
+  - name: Supplier
+    description: Everything about suppliers
+  - name: Item
+    description: Everything about items
+  - name: Reporting
+    description: Everything about reporting
+schemes:
+  - https
+paths:
+  /suppliers:
+    get:
+      tags:
+        - Supplier
+      summary: 'List all suppliers, with decommission flags'
+      responses:
+        '200':
+          description: Successfully returned list of suppliers
+          schema:
+            $ref: '#/definitions/SupplierDecommission'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Could not deliver list of suppliers for some reason
+  /items:
+    get:
+      tags:
+        - Item
+      summary: List all items and their suppliers
+      responses:
+        '200':
+          description: Successfully returned list of items and their suppliers
+          schema:
+            $ref: '#/definitions/ItemLite'
+        '401':
+          description: Unauthorized
+        '500':
+          description: Could not deliver list of items for some reason
+  /decommission:
+    post:
+      tags:
+        - Decommissioning
+      summary: Decommission a single item
+      operationId: sendText
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: DecommissionRequest
+          description: The user to create.
+          required: true
+          schema:
+            $ref: '#/definitions/DecommissionRequest'
+      responses:
+        '201':
+          description: Successfully decommissioned serialized package
+          schema:
+            $ref: '#/definitions/DecommissionConfirmation'
+        '400':
+          description: Could not decommission due to data error in request.
+        '401':
+          description: Unauthorized
+        '500':
+          description: Could not decommission item for some reason
+  /report:
+    post:
+      tags:
+        - Reporting
+      summary: Report a list of items
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: ReportRequest
+          description: The list of items.
+          required: true
+          schema:
+            $ref: '#/definitions/ReportRequest'
+      responses:
+        '201':
+          description: Successfully reported the list of packages
+          schema:
+            $ref: '#/definitions/ReportConfirmation'
+        '400':
+          description: Could not report due to data error in request.
+        '401':
+          description: Unauthorized
+        '500':
+          description: Could not report item for some reason
+definitions:
+  ItemLite:
+    type: array
+    items:
+      type: object
+      required:
+        - id
+        - supplier
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the item
+        supplier:
+          type: string
+          description: Unique identifier of the supplier
+  SupplierDecommission:
+    type: array
+    items:
+      type: object
+      required:
+        - id
+        - customDecommission
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the supplier.
+        customDecommission:
+          type: boolean
+          description: >-
+            If true, all decommissioned items from this supplier should be sent
+            to PharmaDecom API.
+  DecommissionConfirmation:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier of the message sent.
+      msg:
+        type: string
+        description: Error message for logging.
+  DecommissionRequest:
+    type: object
+    required:
+      - id
+      - item
+      - supplier
+      - source
+    properties:
+      id:
+        type: string
+        description: The ID of the serialized package.
+      item:
+        type: string
+        description: Unique identifier of the item.
+      supplier:
+        type: string
+        description: The supplier of the item.
+      source:
+        type: string
+        description: Source of the item
+  ReportConfirmation:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier of the message sent.
+      msg:
+        type: string
+        description: Error message for logging.
+  ReportRequest:
+    type: array
+    items:
+      type: object
+      required:
+        - id
+        - item
+        - supplier
+        - source
+      properties:
+        id:
+          type: string
+          description: The ID of the serialized package.
+        item:
+          type: string
+          description: Unique identifier of the item.
+        supplier:
+          type: string
+          description: The supplier of the item.
+        source:
+          type: string
+          description: Source of the item
