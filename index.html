@@ -711,7 +711,7 @@ margin-bottom: 20px;
 };
             defs.DecommissionRequest = {
   "type" : "object",
-  "required" : [ "id", "item", "supplier" ],
+  "required" : [ "id", "item", "source", "supplier" ],
   "properties" : {
     "id" : {
       "type" : "string",
@@ -724,6 +724,10 @@ margin-bottom: 20px;
     "supplier" : {
       "type" : "string",
       "description" : "The supplier of the item."
+    },
+    "source" : {
+      "type" : "string",
+      "description" : "Source of the item"
     }
   }
 };
@@ -743,6 +747,46 @@ margin-bottom: 20px;
     "supplier" : {
       "type" : "string",
       "description" : "Unique identifier of the supplier"
+    }
+  }
+};
+            defs.ReportConfirmation = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "string",
+      "description" : "Unique identifier of the message sent."
+    },
+    "msg" : {
+      "type" : "string",
+      "description" : "Error message for logging."
+    }
+  }
+};
+            defs.ReportRequest = {
+  "type" : "array",
+  "items" : {
+    "$ref" : "#/definitions/ReportRequest_inner"
+  }
+};
+            defs.ReportRequest_inner = {
+  "required" : [ "id", "item", "source", "supplier" ],
+  "properties" : {
+    "id" : {
+      "type" : "string",
+      "description" : "The ID of the serialized package."
+    },
+    "item" : {
+      "type" : "string",
+      "description" : "Unique identifier of the item."
+    },
+    "supplier" : {
+      "type" : "string",
+      "description" : "The supplier of the item."
+    },
+    "source" : {
+      "type" : "string",
+      "description" : "Source of the item"
     }
   }
 };
@@ -782,16 +826,20 @@ margin-bottom: 20px;
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
                   <li class="nav-header" data-group="Decommissioning"><a href="#api-Decommissioning">API Methods - Decommissioning</a></li>
-                    <li data-group="Decommissioning" data-name="sendText" class="">
-                      <a href="#api-Decommissioning-sendText">sendText</a>
+                    <li data-group="Decommissioning" data-name="decomission" class="">
+                      <a href="#api-Decommissioning-decomission">decomission</a>
                     </li>
                   <li class="nav-header" data-group="Item"><a href="#api-Item">API Methods - Item</a></li>
-                    <li data-group="Item" data-name="itemsGet" class="">
-                      <a href="#api-Item-itemsGet">itemsGet</a>
+                    <li data-group="Item" data-name="listItems" class="">
+                      <a href="#api-Item-listItems">listItems</a>
+                    </li>
+                  <li class="nav-header" data-group="Reporting"><a href="#api-Reporting">API Methods - Reporting</a></li>
+                    <li data-group="Reporting" data-name="report" class="">
+                      <a href="#api-Reporting-report">report</a>
                     </li>
                   <li class="nav-header" data-group="Supplier"><a href="#api-Supplier">API Methods - Supplier</a></li>
-                    <li data-group="Supplier" data-name="suppliersGet" class="">
-                      <a href="#api-Supplier-suppliersGet">suppliersGet</a>
+                    <li data-group="Supplier" data-name="listSuppliers" class="">
+                      <a href="#api-Supplier-listSuppliers">listSuppliers</a>
                     </li>
           </ul>
         </nav>
@@ -814,10 +862,10 @@ margin-bottom: 20px;
         <div id="sections">
                 <section id="api-Decommissioning">
                   <h1>Decommissioning</h1>
-                    <div id="api-Decommissioning-sendText">
-                      <article id="api-Decommissioning-sendText-0" data-group="User" data-name="sendText" data-version="0">
+                    <div id="api-Decommissioning-decomission">
+                      <article id="api-Decommissioning-decomission-0" data-group="User" data-name="decomission" data-version="0">
                         <div class="pull-left">
-                          <h1>sendText</h1>
+                          <h1>decomission</h1>
                           <p>Decommission a single item</p>
                         </div>
                         <div class="pull-right"></div>
@@ -831,24 +879,24 @@ margin-bottom: 20px;
                           <h3>Usage and SDK Samples</h3>
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Decommissioning-sendText-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Decommissioning-sendText-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Decommissioning-sendText-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Decommissioning-sendText-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Decommissioning-sendText-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Decommissioning-sendText-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Decommissioning-sendText-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Decommissioning-sendText-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Decommissioning-sendText-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Decommissioning-sendText-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Decommissioning-sendText-0-python">Python</a></li>
+                          <li class="active"><a href="#examples-Decommissioning-decomission-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Decommissioning-decomission-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Decommissioning-decomission-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Decommissioning-decomission-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Decommissioning-decomission-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Decommissioning-decomission-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Decommissioning-decomission-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Decommissioning-decomission-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Decommissioning-decomission-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Decommissioning-decomission-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Decommissioning-decomission-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Decommissioning-sendText-0-curl">
+                          <div class="tab-pane active" id="examples-Decommissioning-decomission-0-curl">
                             <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://tbd.com/v1/pharmadecom/decommission"</code></pre>
                           </div>
-                          <div class="tab-pane" id="examples-Decommissioning-sendText-0-java">
+                          <div class="tab-pane" id="examples-Decommissioning-decomission-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
@@ -864,17 +912,17 @@ public class DecommissioningApiExample {
         DecommissioningApi apiInstance = new DecommissioningApi();
         DecommissionRequest decommissionRequest = ; // DecommissionRequest | The user to create.
         try {
-            DecommissionConfirmation result = apiInstance.sendText(decommissionRequest);
+            DecommissionConfirmation result = apiInstance.decomission(decommissionRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DecommissioningApi#sendText");
+            System.err.println("Exception when calling DecommissioningApi#decomission");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-Decommissioning-sendText-0-android">
+                          <div class="tab-pane" id="examples-Decommissioning-decomission-0-android">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DecommissioningApi;
 
 public class DecommissioningApiExample {
@@ -883,26 +931,26 @@ public class DecommissioningApiExample {
         DecommissioningApi apiInstance = new DecommissioningApi();
         DecommissionRequest decommissionRequest = ; // DecommissionRequest | The user to create.
         try {
-            DecommissionConfirmation result = apiInstance.sendText(decommissionRequest);
+            DecommissionConfirmation result = apiInstance.decomission(decommissionRequest);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DecommissioningApi#sendText");
+            System.err.println("Exception when calling DecommissioningApi#decomission");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
   <!--
-  <div class="tab-pane" id="examples-Decommissioning-sendText-0-groovy">
+  <div class="tab-pane" id="examples-Decommissioning-decomission-0-groovy">
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
-                            <div class="tab-pane" id="examples-Decommissioning-sendText-0-objc">
+                            <div class="tab-pane" id="examples-Decommissioning-decomission-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">DecommissionRequest *decommissionRequest = ; // The user to create.
 
 DecommissioningApi *apiInstance = [[DecommissioningApi alloc] init];
 
 // Decommission a single item
-[apiInstance sendTextWith:decommissionRequest
+[apiInstance decomissionWith:decommissionRequest
               completionHandler: ^(DecommissionConfirmation output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -914,7 +962,7 @@ DecommissioningApi *apiInstance = [[DecommissioningApi alloc] init];
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Decommissioning-sendText-0-javascript">
+                            <div class="tab-pane" id="examples-Decommissioning-decomission-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var PharmaDecomApi = require('pharma_decom_api');
 
 var api = new PharmaDecomApi.DecommissioningApi()
@@ -929,14 +977,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.sendText(decommissionRequest, callback);
+api.decomission(decommissionRequest, callback);
 </code></pre>
                             </div>
 
-                            <!--<div class="tab-pane" id="examples-Decommissioning-sendText-0-angular">
+                            <!--<div class="tab-pane" id="examples-Decommissioning-decomission-0-angular">
               <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
             </div>-->
-                            <div class="tab-pane" id="examples-Decommissioning-sendText-0-csharp">
+                            <div class="tab-pane" id="examples-Decommissioning-decomission-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
@@ -945,7 +993,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class sendTextExample
+    public class decomissionExample
     {
         public void main()
         {
@@ -956,12 +1004,12 @@ namespace Example
             try
             {
                 // Decommission a single item
-                DecommissionConfirmation result = apiInstance.sendText(decommissionRequest);
+                DecommissionConfirmation result = apiInstance.decomission(decommissionRequest);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DecommissioningApi.sendText: " + e.Message );
+                Debug.Print("Exception when calling DecommissioningApi.decomission: " + e.Message );
             }
         }
     }
@@ -969,7 +1017,7 @@ namespace Example
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Decommissioning-sendText-0-php">
+                            <div class="tab-pane" id="examples-Decommissioning-decomission-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
@@ -977,15 +1025,15 @@ $api_instance = new Swagger\Client\Api\DecommissioningApi();
 $decommissionRequest = ; // DecommissionRequest | The user to create.
 
 try {
-    $result = $api_instance->sendText($decommissionRequest);
+    $result = $api_instance->decomission($decommissionRequest);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DecommissioningApi->sendText: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DecommissioningApi->decomission: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Decommissioning-sendText-0-perl">
+                            <div class="tab-pane" id="examples-Decommissioning-decomission-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::DecommissioningApi;
@@ -994,15 +1042,15 @@ my $api_instance = WWW::SwaggerClient::DecommissioningApi->new();
 my $decommissionRequest = WWW::SwaggerClient::Object::DecommissionRequest->new(); # DecommissionRequest | The user to create.
 
 eval { 
-    my $result = $api_instance->sendText(decommissionRequest => $decommissionRequest);
+    my $result = $api_instance->decomission(decommissionRequest => $decommissionRequest);
     print Dumper($result);
 };
 if ($@) {
-    warn "Exception when calling DecommissioningApi->sendText: $@\n";
+    warn "Exception when calling DecommissioningApi->decomission: $@\n";
 }</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Decommissioning-sendText-0-python">
+                            <div class="tab-pane" id="examples-Decommissioning-decomission-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import swagger_client
@@ -1015,10 +1063,10 @@ decommissionRequest =  # DecommissionRequest | The user to create.
 
 try: 
     # Decommission a single item
-    api_response = api_instance.send_text(decommissionRequest)
+    api_response = api_instance.decomission(decommissionRequest)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DecommissioningApi->sendText: %s\n" % e)</code></pre>
+    print("Exception when calling DecommissioningApi->decomission: %s\n" % e)</code></pre>
                             </div>
                           </div>
 
@@ -1058,12 +1106,12 @@ $(document).ready(function() {
   }
 
   var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-  var result = $('#d2e199_sendText_decommissionRequest');
+  var result = $('#d2e199_decomission_decommissionRequest');
   result.empty();
   result.append(view.render());
 });
 </script>
-<div id="d2e199_sendText_decommissionRequest"></div>
+<div id="d2e199_decomission_decommissionRequest"></div>
 </td>
 </tr>
 
@@ -1076,14 +1124,14 @@ $(document).ready(function() {
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-sendText-201-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-decomission-201-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-sendText-201-schema">
-                                  <div id='responses-sendText-201-schema-201' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-decomission-201-schema">
+                                  <div id='responses-decomission-201-schema-201' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
@@ -1104,14 +1152,14 @@ $(document).ready(function() {
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-sendText-201-schema-data').val(stringify(schema));
-                                        var result = $('#responses-sendText-201-schema-201');
+                                        $('#responses-decomission-201-schema-data').val(stringify(schema));
+                                        var result = $('#responses-decomission-201-schema-201');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-sendText-201-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-decomission-201-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -1145,10 +1193,10 @@ $(document).ready(function() {
                   </section>
                 <section id="api-Item">
                   <h1>Item</h1>
-                    <div id="api-Item-itemsGet">
-                      <article id="api-Item-itemsGet-0" data-group="User" data-name="itemsGet" data-version="0">
+                    <div id="api-Item-listItems">
+                      <article id="api-Item-listItems-0" data-group="User" data-name="listItems" data-version="0">
                         <div class="pull-left">
-                          <h1>itemsGet</h1>
+                          <h1>listItems</h1>
                           <p>List all items and their suppliers</p>
                         </div>
                         <div class="pull-right"></div>
@@ -1162,24 +1210,24 @@ $(document).ready(function() {
                           <h3>Usage and SDK Samples</h3>
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Item-itemsGet-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Item-itemsGet-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Item-itemsGet-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Item-itemsGet-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Item-itemsGet-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Item-itemsGet-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Item-itemsGet-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Item-itemsGet-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Item-itemsGet-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Item-itemsGet-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Item-itemsGet-0-python">Python</a></li>
+                          <li class="active"><a href="#examples-Item-listItems-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Item-listItems-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Item-listItems-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Item-listItems-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Item-listItems-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Item-listItems-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Item-listItems-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Item-listItems-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Item-listItems-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Item-listItems-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Item-listItems-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Item-itemsGet-0-curl">
+                          <div class="tab-pane active" id="examples-Item-listItems-0-curl">
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://tbd.com/v1/pharmadecom/items"</code></pre>
                           </div>
-                          <div class="tab-pane" id="examples-Item-itemsGet-0-java">
+                          <div class="tab-pane" id="examples-Item-listItems-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
@@ -1194,17 +1242,17 @@ public class ItemApiExample {
         
         ItemApi apiInstance = new ItemApi();
         try {
-            ItemLite result = apiInstance.itemsGet();
+            ItemLite result = apiInstance.listItems();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ItemApi#itemsGet");
+            System.err.println("Exception when calling ItemApi#listItems");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-Item-itemsGet-0-android">
+                          <div class="tab-pane" id="examples-Item-listItems-0-android">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ItemApi;
 
 public class ItemApiExample {
@@ -1212,25 +1260,25 @@ public class ItemApiExample {
     public static void main(String[] args) {
         ItemApi apiInstance = new ItemApi();
         try {
-            ItemLite result = apiInstance.itemsGet();
+            ItemLite result = apiInstance.listItems();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling ItemApi#itemsGet");
+            System.err.println("Exception when calling ItemApi#listItems");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
   <!--
-  <div class="tab-pane" id="examples-Item-itemsGet-0-groovy">
+  <div class="tab-pane" id="examples-Item-listItems-0-groovy">
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
-                            <div class="tab-pane" id="examples-Item-itemsGet-0-objc">
+                            <div class="tab-pane" id="examples-Item-listItems-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">
 ItemApi *apiInstance = [[ItemApi alloc] init];
 
 // List all items and their suppliers
-[apiInstance itemsGetWithCompletionHandler: 
+[apiInstance listItemsWithCompletionHandler: 
               ^(ItemLite output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -1242,7 +1290,7 @@ ItemApi *apiInstance = [[ItemApi alloc] init];
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Item-itemsGet-0-javascript">
+                            <div class="tab-pane" id="examples-Item-listItems-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var PharmaDecomApi = require('pharma_decom_api');
 
 var api = new PharmaDecomApi.ItemApi()
@@ -1254,14 +1302,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.itemsGet(callback);
+api.listItems(callback);
 </code></pre>
                             </div>
 
-                            <!--<div class="tab-pane" id="examples-Item-itemsGet-0-angular">
+                            <!--<div class="tab-pane" id="examples-Item-listItems-0-angular">
               <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
             </div>-->
-                            <div class="tab-pane" id="examples-Item-itemsGet-0-csharp">
+                            <div class="tab-pane" id="examples-Item-listItems-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
@@ -1270,7 +1318,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class itemsGetExample
+    public class listItemsExample
     {
         public void main()
         {
@@ -1280,12 +1328,12 @@ namespace Example
             try
             {
                 // List all items and their suppliers
-                ItemLite result = apiInstance.itemsGet();
+                ItemLite result = apiInstance.listItems();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling ItemApi.itemsGet: " + e.Message );
+                Debug.Print("Exception when calling ItemApi.listItems: " + e.Message );
             }
         }
     }
@@ -1293,22 +1341,22 @@ namespace Example
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Item-itemsGet-0-php">
+                            <div class="tab-pane" id="examples-Item-listItems-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\Api\ItemApi();
 
 try {
-    $result = $api_instance->itemsGet();
+    $result = $api_instance->listItems();
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling ItemApi->itemsGet: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling ItemApi->listItems: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Item-itemsGet-0-perl">
+                            <div class="tab-pane" id="examples-Item-listItems-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::ItemApi;
@@ -1316,15 +1364,15 @@ use WWW::SwaggerClient::ItemApi;
 my $api_instance = WWW::SwaggerClient::ItemApi->new();
 
 eval { 
-    my $result = $api_instance->itemsGet();
+    my $result = $api_instance->listItems();
     print Dumper($result);
 };
 if ($@) {
-    warn "Exception when calling ItemApi->itemsGet: $@\n";
+    warn "Exception when calling ItemApi->listItems: $@\n";
 }</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Item-itemsGet-0-python">
+                            <div class="tab-pane" id="examples-Item-listItems-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import swagger_client
@@ -1336,10 +1384,10 @@ api_instance = swagger_client.ItemApi()
 
 try: 
     # List all items and their suppliers
-    api_response = api_instance.items_get()
+    api_response = api_instance.list_items()
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling ItemApi->itemsGet: %s\n" % e)</code></pre>
+    print("Exception when calling ItemApi->listItems: %s\n" % e)</code></pre>
                             </div>
                           </div>
 
@@ -1355,14 +1403,14 @@ except ApiException as e:
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-itemsGet-200-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-listItems-200-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-itemsGet-200-schema">
-                                  <div id='responses-itemsGet-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-listItems-200-schema">
+                                  <div id='responses-listItems-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
@@ -1383,14 +1431,14 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-itemsGet-200-schema-data').val(stringify(schema));
-                                        var result = $('#responses-itemsGet-200-schema-200');
+                                        $('#responses-listItems-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-listItems-200-schema-200');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-itemsGet-200-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-listItems-200-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -1414,12 +1462,343 @@ except ApiException as e:
                       </div>
                       <hr>
                   </section>
+                <section id="api-Reporting">
+                  <h1>Reporting</h1>
+                    <div id="api-Reporting-report">
+                      <article id="api-Reporting-report-0" data-group="User" data-name="report" data-version="0">
+                        <div class="pull-left">
+                          <h1>report</h1>
+                          <p>Report a list of items</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/report</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Reporting-report-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Reporting-report-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Reporting-report-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Reporting-report-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Reporting-report-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Reporting-report-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Reporting-report-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Reporting-report-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Reporting-report-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Reporting-report-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Reporting-report-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Reporting-report-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://tbd.com/v1/pharmadecom/report"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Reporting-report-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ReportingApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ReportingApiExample {
+
+    public static void main(String[] args) {
+        
+        ReportingApi apiInstance = new ReportingApi();
+        ReportRequest reportRequest = ; // ReportRequest | The list of items.
+        try {
+            ReportConfirmation result = apiInstance.report(reportRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ReportingApi#report");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Reporting-report-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ReportingApi;
+
+public class ReportingApiExample {
+
+    public static void main(String[] args) {
+        ReportingApi apiInstance = new ReportingApi();
+        ReportRequest reportRequest = ; // ReportRequest | The list of items.
+        try {
+            ReportConfirmation result = apiInstance.report(reportRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ReportingApi#report");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Reporting-report-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Reporting-report-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">ReportRequest *reportRequest = ; // The list of items.
+
+ReportingApi *apiInstance = [[ReportingApi alloc] init];
+
+// Report a list of items
+[apiInstance reportWith:reportRequest
+              completionHandler: ^(ReportConfirmation output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Reporting-report-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var PharmaDecomApi = require('pharma_decom_api');
+
+var api = new PharmaDecomApi.ReportingApi()
+
+var reportRequest = ; // {ReportRequest} The list of items.
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.report(reportRequest, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Reporting-report-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Reporting-report-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class reportExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new ReportingApi();
+            var reportRequest = new ReportRequest(); // ReportRequest | The list of items.
+
+            try
+            {
+                // Report a list of items
+                ReportConfirmation result = apiInstance.report(reportRequest);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ReportingApi.report: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Reporting-report-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\ReportingApi();
+$reportRequest = ; // ReportRequest | The list of items.
+
+try {
+    $result = $api_instance->report($reportRequest);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ReportingApi->report: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Reporting-report-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ReportingApi;
+
+my $api_instance = WWW::SwaggerClient::ReportingApi->new();
+my $reportRequest = WWW::SwaggerClient::Object::ReportRequest->new(); # ReportRequest | The list of items.
+
+eval { 
+    my $result = $api_instance->report(reportRequest => $reportRequest);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling ReportingApi->report: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Reporting-report-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.ReportingApi()
+reportRequest =  # ReportRequest | The list of items.
+
+try: 
+    # Report a list of items
+    api_response = api_instance.report(reportRequest)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ReportingApi->report: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">reportRequest <span style="color:red;">*</span></td>
+<td>
+
+
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "in" : "body",
+  "name" : "ReportRequest",
+  "description" : "The list of items.",
+  "required" : true,
+  "schema" : {
+    "$ref" : "#/definitions/ReportRequest"
+  }
+};
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_report_reportRequest');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_report_reportRequest"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 201 - Successfully reported the list of packages </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-report-201-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-report-201-schema">
+                                  <div id='responses-report-201-schema-201' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Successfully reported the list of packages",
+  "schema" : {
+    "$ref" : "#/definitions/ReportConfirmation"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-report-201-schema-data').val(stringify(schema));
+                                        var result = $('#responses-report-201-schema-201');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-report-201-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - Could not report due to data error in request. </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 401 - Unauthorized </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 500 - Could not report item for some reason </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
                 <section id="api-Supplier">
                   <h1>Supplier</h1>
-                    <div id="api-Supplier-suppliersGet">
-                      <article id="api-Supplier-suppliersGet-0" data-group="User" data-name="suppliersGet" data-version="0">
+                    <div id="api-Supplier-listSuppliers">
+                      <article id="api-Supplier-listSuppliers-0" data-group="User" data-name="listSuppliers" data-version="0">
                         <div class="pull-left">
-                          <h1>suppliersGet</h1>
+                          <h1>listSuppliers</h1>
                           <p>List all suppliers, with decommission flags</p>
                         </div>
                         <div class="pull-right"></div>
@@ -1433,24 +1812,24 @@ except ApiException as e:
                           <h3>Usage and SDK Samples</h3>
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Supplier-suppliersGet-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Supplier-suppliersGet-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Supplier-suppliersGet-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Supplier-suppliersGet-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Supplier-suppliersGet-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Supplier-suppliersGet-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Supplier-suppliersGet-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Supplier-suppliersGet-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Supplier-suppliersGet-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Supplier-suppliersGet-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Supplier-suppliersGet-0-python">Python</a></li>
+                          <li class="active"><a href="#examples-Supplier-listSuppliers-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Supplier-listSuppliers-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Supplier-listSuppliers-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Supplier-listSuppliers-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Supplier-listSuppliers-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Supplier-listSuppliers-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Supplier-listSuppliers-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Supplier-listSuppliers-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Supplier-listSuppliers-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Supplier-listSuppliers-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Supplier-listSuppliers-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Supplier-suppliersGet-0-curl">
+                          <div class="tab-pane active" id="examples-Supplier-listSuppliers-0-curl">
                             <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://tbd.com/v1/pharmadecom/suppliers"</code></pre>
                           </div>
-                          <div class="tab-pane" id="examples-Supplier-suppliersGet-0-java">
+                          <div class="tab-pane" id="examples-Supplier-listSuppliers-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
@@ -1465,17 +1844,17 @@ public class SupplierApiExample {
         
         SupplierApi apiInstance = new SupplierApi();
         try {
-            SupplierDecommission result = apiInstance.suppliersGet();
+            SupplierDecommission result = apiInstance.listSuppliers();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SupplierApi#suppliersGet");
+            System.err.println("Exception when calling SupplierApi#listSuppliers");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-Supplier-suppliersGet-0-android">
+                          <div class="tab-pane" id="examples-Supplier-listSuppliers-0-android">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.SupplierApi;
 
 public class SupplierApiExample {
@@ -1483,25 +1862,25 @@ public class SupplierApiExample {
     public static void main(String[] args) {
         SupplierApi apiInstance = new SupplierApi();
         try {
-            SupplierDecommission result = apiInstance.suppliersGet();
+            SupplierDecommission result = apiInstance.listSuppliers();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling SupplierApi#suppliersGet");
+            System.err.println("Exception when calling SupplierApi#listSuppliers");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
   <!--
-  <div class="tab-pane" id="examples-Supplier-suppliersGet-0-groovy">
+  <div class="tab-pane" id="examples-Supplier-listSuppliers-0-groovy">
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
-                            <div class="tab-pane" id="examples-Supplier-suppliersGet-0-objc">
+                            <div class="tab-pane" id="examples-Supplier-listSuppliers-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">
 SupplierApi *apiInstance = [[SupplierApi alloc] init];
 
 // List all suppliers, with decommission flags
-[apiInstance suppliersGetWithCompletionHandler: 
+[apiInstance listSuppliersWithCompletionHandler: 
               ^(SupplierDecommission output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -1513,7 +1892,7 @@ SupplierApi *apiInstance = [[SupplierApi alloc] init];
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Supplier-suppliersGet-0-javascript">
+                            <div class="tab-pane" id="examples-Supplier-listSuppliers-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var PharmaDecomApi = require('pharma_decom_api');
 
 var api = new PharmaDecomApi.SupplierApi()
@@ -1525,14 +1904,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.suppliersGet(callback);
+api.listSuppliers(callback);
 </code></pre>
                             </div>
 
-                            <!--<div class="tab-pane" id="examples-Supplier-suppliersGet-0-angular">
+                            <!--<div class="tab-pane" id="examples-Supplier-listSuppliers-0-angular">
               <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
             </div>-->
-                            <div class="tab-pane" id="examples-Supplier-suppliersGet-0-csharp">
+                            <div class="tab-pane" id="examples-Supplier-listSuppliers-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
@@ -1541,7 +1920,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class suppliersGetExample
+    public class listSuppliersExample
     {
         public void main()
         {
@@ -1551,12 +1930,12 @@ namespace Example
             try
             {
                 // List all suppliers, with decommission flags
-                SupplierDecommission result = apiInstance.suppliersGet();
+                SupplierDecommission result = apiInstance.listSuppliers();
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling SupplierApi.suppliersGet: " + e.Message );
+                Debug.Print("Exception when calling SupplierApi.listSuppliers: " + e.Message );
             }
         }
     }
@@ -1564,22 +1943,22 @@ namespace Example
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Supplier-suppliersGet-0-php">
+                            <div class="tab-pane" id="examples-Supplier-listSuppliers-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\Api\SupplierApi();
 
 try {
-    $result = $api_instance->suppliersGet();
+    $result = $api_instance->listSuppliers();
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling SupplierApi->suppliersGet: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling SupplierApi->listSuppliers: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Supplier-suppliersGet-0-perl">
+                            <div class="tab-pane" id="examples-Supplier-listSuppliers-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::SupplierApi;
@@ -1587,15 +1966,15 @@ use WWW::SwaggerClient::SupplierApi;
 my $api_instance = WWW::SwaggerClient::SupplierApi->new();
 
 eval { 
-    my $result = $api_instance->suppliersGet();
+    my $result = $api_instance->listSuppliers();
     print Dumper($result);
 };
 if ($@) {
-    warn "Exception when calling SupplierApi->suppliersGet: $@\n";
+    warn "Exception when calling SupplierApi->listSuppliers: $@\n";
 }</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Supplier-suppliersGet-0-python">
+                            <div class="tab-pane" id="examples-Supplier-listSuppliers-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import swagger_client
@@ -1607,10 +1986,10 @@ api_instance = swagger_client.SupplierApi()
 
 try: 
     # List all suppliers, with decommission flags
-    api_response = api_instance.suppliers_get()
+    api_response = api_instance.list_suppliers()
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling SupplierApi->suppliersGet: %s\n" % e)</code></pre>
+    print("Exception when calling SupplierApi->listSuppliers: %s\n" % e)</code></pre>
                             </div>
                           </div>
 
@@ -1626,14 +2005,14 @@ except ApiException as e:
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-suppliersGet-200-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-listSuppliers-200-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-suppliersGet-200-schema">
-                                  <div id='responses-suppliersGet-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-listSuppliers-200-schema">
+                                  <div id='responses-listSuppliers-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
@@ -1654,14 +2033,14 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-suppliersGet-200-schema-data').val(stringify(schema));
-                                        var result = $('#responses-suppliersGet-200-schema-200');
+                                        $('#responses-listSuppliers-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-listSuppliers-200-schema-200');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-suppliersGet-200-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-listSuppliers-200-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
@@ -1698,7 +2077,7 @@ except ApiException as e:
           </div>
           <div id="generator">
             <div class="content">
-              Generated 2018-07-10T11:42:33.071Z
+              Generated 2018-09-06T09:13:51.985Z
             </div>
           </div>
       </div>
